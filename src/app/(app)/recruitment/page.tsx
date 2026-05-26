@@ -85,7 +85,10 @@ export default function RecruitmentPage() {
   }
 
   function handleExport() {
-    downloadCSV(`candidates-${new Date().toISOString().slice(0, 10)}.csv`, toCSV(candidates));
+    downloadCSV(
+      `candidates-${new Date().toISOString().slice(0, 10)}.csv`,
+      toCSV(candidates as unknown as Record<string, unknown>[]),
+    );
   }
 
   return (
