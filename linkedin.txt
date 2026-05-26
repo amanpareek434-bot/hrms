@@ -1,0 +1,46 @@
+Stop paying ₹500/seat for HR software. 💸
+
+So I built my own — and made it open source. 🚀
+
+Meet PeopleHub — a complete, self-hosted HRMS for the modern workplace. No SaaS bills. No per-seat costs. No vendor lock-in. Just your MySQL, your server, your data.
+
+Here's what's inside 👇
+
+✦ 6 features I'm most proud of:
+
+🔹 Dual-Portal Architecture
+HR admins get full control across 14 modules. Employees see only their own data — enforced by role-based middleware at the edge.
+
+🔹 Cmd + K Global Search
+Find any employee, candidate, department or document in a single keystroke. Notion-grade UX with full keyboard navigation.
+
+🔹 One-Click Payslip PDFs
+Auto-generated monthly payroll with printable A4 payslips — your company logo, earnings breakdown, net pay. Zero PDF libraries needed.
+
+🔹 Recruitment Kanban
+Drag candidates across Applied → Screening → Interview → Offer → Hired. Toggle to table view for full pipeline analytics.
+
+🔹 Smart Leave Engine
+Real-time balances per leave type — Casual, Sick, Earned, Maternity, Paternity. Auto-deduct on approval, with progress bars.
+
+🔹 100% Self-Hosted & Secure
+Runs on your own MySQL. JWT in httpOnly cookies, bcrypt-hashed passwords. Your data never leaves your server.
+
+➕ Plus 8 more modules:
+Dashboard · Attendance · Performance · Documents · Assets · Calendar · Reports · Announcements
+
+🛠️ Tech Stack:
+Next.js 14 (App Router) · TypeScript · Tailwind CSS · MySQL 8 · JWT (jose) · bcrypt · Plain SQL, no ORM
+
+✅ Why it matters:
+• 100% self-hosted — your data stays on your MySQL
+• Zero per-seat costs
+• Setup in under 5 minutes
+• Fully open source — extend, modify, brand it as your own
+
+Building this taught me a ton about RBAC, real-time HR workflows, payroll computation, and designing for two very different user personas inside the same app.
+
+💬 Question for you:
+What's the ONE feature you wish your current HR software had? Drop it in the comments 👇
+
+#WebDevelopment #NextJS #TypeScript #TailwindCSS #MySQL #FullStack #HRMS #OpenSource #SaaS #SoftwareEngineering #BuildInPublic #ReactJS #SoftwareDevelopment #HRTech #FullStackDeveloper #IndieHacker
