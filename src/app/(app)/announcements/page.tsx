@@ -99,7 +99,7 @@ export default function AnnouncementsPage() {
         }
       />
 
-      <div className="space-y-4 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-4 p-4 sm:p-6 lg:px-8">
         {filtered.length === 0 ? (
           <div className="card py-12 text-center text-sm text-slate-500">No announcements yet.</div>
         ) : (

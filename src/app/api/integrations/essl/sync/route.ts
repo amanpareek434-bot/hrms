@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
 import { exec, query, uid } from "@/lib/db";
+import { todayIST, nowTimeIST } from "@/lib/datetime";
 import { aggregateByDay, fetchAttendance, getDeviceInfo } from "@/lib/essl";
 
 export const dynamic = "force-dynamic";
@@ -130,7 +131,7 @@ export async function POST(req: NextRequest) {
       else updated++;
     }
 
-    const now = new Date().toISOString().slice(0, 19).replace("T", " ");
+    const now = `${todayIST()} ${nowTimeIST()}`;
     await exec(
       "UPDATE essl_settings SET last_sync_at=?, last_sync_count=?, last_error=NULL WHERE id=1",
       [now, inserted + updated],

@@ -140,7 +140,7 @@ export default function ReportsPage() {
         }
       />
 
-      <div className="space-y-6 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-6 p-4 sm:p-6 lg:px-8">
         {/* High-level KPIs */}
         <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <Kpi label="Total Employees" value={employees.length} sub={`${employees.filter((e) => e.status === "Active").length} active`} tone="brand" />

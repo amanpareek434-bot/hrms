@@ -116,7 +116,7 @@ export default function PayrollPage() {
           </>
         }
       />
-      <div className="space-y-4 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-4 p-4 sm:p-6 lg:px-8">
         <section className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           <SummaryCard label="Basic" value={formatCurrency(totals.basic)} />
           <SummaryCard label="HRA" value={formatCurrency(totals.hra)} />

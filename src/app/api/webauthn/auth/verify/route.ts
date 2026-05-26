@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyAuthenticationResponse } from "@simplewebauthn/server";
 import { getCurrentUser } from "@/lib/auth";
 import { exec, query, uid } from "@/lib/db";
+import { todayIST, nowTimeIST } from "@/lib/datetime";
 import { getRpInfo } from "@/lib/webauthn";
 
 export const dynamic = "force-dynamic";
@@ -22,22 +23,6 @@ interface AttendanceRow {
   id: string;
   check_in: string | null;
   check_out: string | null;
-}
-
-function localDateStr(): string {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
-
-function localTimeStr(): string {
-  const d = new Date();
-  const h = String(d.getHours()).padStart(2, "0");
-  const m = String(d.getMinutes()).padStart(2, "0");
-  const s = String(d.getSeconds()).padStart(2, "0");
-  return `${h}:${m}:${s}`;
 }
 
 export async function POST(req: NextRequest) {
@@ -102,9 +87,9 @@ export async function POST(req: NextRequest) {
     // Clear challenge
     await exec("DELETE FROM webauthn_challenges WHERE employee_id=?", [me.employeeId]);
 
-    // Mark attendance
-    const today = localDateStr();
-    const now = localTimeStr();
+    // Mark attendance (always in IST)
+    const today = todayIST();
+    const now = nowTimeIST();
 
     const existing = await query<AttendanceRow>(
       "SELECT id, check_in, check_out FROM attendance WHERE employee_id=? AND `date`=?",

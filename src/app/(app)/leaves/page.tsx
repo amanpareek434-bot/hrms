@@ -94,7 +94,7 @@ export default function LeavesPage() {
           </>
         }
       />
-      <div className="space-y-4 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-4 p-4 sm:p-6 lg:px-8">
         <div className="card">
           <div className="overflow-x-auto">
             <table className="table-base">

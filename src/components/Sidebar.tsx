@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeToggle } from "./ThemeProvider";
 
 const ADMIN_NAV: Array<{ section?: string; href: string; label: string; icon: string }> = [
@@ -51,10 +51,26 @@ function initials(name: string): string {
     .join("");
 }
 
-export default function Sidebar({ user, onSearch }: { user: User | null; onSearch?: () => void }) {
+export default function Sidebar({
+  user,
+  onSearch,
+  mobileOpen = false,
+  onMobileClose,
+}: {
+  user: User | null;
+  onSearch?: () => void;
+  mobileOpen?: boolean;
+  onMobileClose?: () => void;
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const [loggingOut, setLoggingOut] = useState(false);
+
+  // Auto-close mobile drawer on navigation
+  useEffect(() => {
+    if (mobileOpen) onMobileClose?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   async function handleLogout() {
     setLoggingOut(true);
@@ -71,7 +87,20 @@ export default function Sidebar({ user, onSearch }: { user: User | null; onSearc
   const nav = isEmployee ? EMPLOYEE_NAV : ADMIN_NAV;
 
   return (
-    <aside className="hidden w-64 shrink-0 border-r border-slate-200 bg-white dark:border-white/5 dark:bg-ink-900 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:self-start">
+    <>
+      {/* Mobile backdrop */}
+      {mobileOpen ? (
+        <div
+          className="fixed inset-0 z-40 bg-slate-900/60 backdrop-blur-sm lg:hidden"
+          onClick={onMobileClose}
+        />
+      ) : null}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-64 shrink-0 border-r border-slate-200 bg-white transition-transform duration-300 dark:border-white/5 dark:bg-ink-900 lg:sticky lg:top-0 lg:z-auto lg:flex lg:h-screen lg:flex-col lg:self-start lg:transition-none ${
+          mobileOpen ? "flex flex-col translate-x-0" : "-translate-x-full lg:translate-x-0 lg:flex"
+        }`}
+      >
       <Link
         href={isEmployee ? "/me" : "/dashboard"}
         className="flex h-16 items-center gap-3 border-b border-slate-200 px-6 hover:bg-slate-50 dark:border-white/5 dark:hover:bg-white/5"
@@ -163,6 +192,7 @@ export default function Sidebar({ user, onSearch }: { user: User | null; onSearc
           </div>
         )}
       </div>
-    </aside>
+      </aside>
+    </>
   );
 }

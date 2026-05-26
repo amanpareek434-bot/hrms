@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { exec, query, uid } from "@/lib/db";
+import { todayIST } from "@/lib/datetime";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +43,7 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const id = body.id || uid("l-");
-    const appliedOn = body.appliedOn || new Date().toISOString().slice(0, 10);
+    const appliedOn = body.appliedOn || todayIST();
     await exec(
       "INSERT INTO leaves (id, employee_id, type, from_date, to_date, reason, status, applied_on) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       [

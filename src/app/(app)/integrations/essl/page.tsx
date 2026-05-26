@@ -195,7 +195,7 @@ export default function EsslIntegrationPage() {
         }
       />
 
-      <div className="space-y-6 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-6 p-4 sm:p-6 lg:px-8">
         {errorMsg ? (
           <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
             {errorMsg}

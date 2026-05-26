@@ -57,7 +57,7 @@ export default function MyPayslipsPage() {
         subtitle={`${myPayroll.length} record${myPayroll.length === 1 ? "" : "s"}`}
       />
 
-      <div className="space-y-6 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-6 p-4 sm:p-6 lg:px-8">
         <section className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           <KPI label="Total Gross" value={formatCurrency(totals.gross)} tone="brand" />
           <KPI label="Total Deductions" value={formatCurrency(totals.deductions)} tone="rose" />

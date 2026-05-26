@@ -81,7 +81,7 @@ export default function DashboardPage() {
   return (
     <>
       <Header title="Dashboard" subtitle="Overview of your organization" />
-      <div className="space-y-6 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-6 p-4 sm:p-6 lg:px-8">
         {latestAnnouncement ? (
           <section
             className={`relative overflow-hidden rounded-xl border p-5 shadow-card ${

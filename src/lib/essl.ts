@@ -90,32 +90,21 @@ export async function fetchAttendance(cfg: EsslConfig, sinceIso?: string): Promi
 
 // Aggregate raw punches into per-employee-per-day records.
 // First punch of the day = check-in, last = check-out.
+// All dates and times are normalised to IST.
+import { dateIST, timeIST } from "./datetime";
+
 export interface AggregatedDay {
   userId: string;          // device user id
-  date: string;            // YYYY-MM-DD (local)
-  checkIn: string;         // HH:MM:SS
-  checkOut: string;        // HH:MM:SS (same as checkIn if only one punch)
+  date: string;            // YYYY-MM-DD (IST)
+  checkIn: string;         // HH:MM:SS (IST)
+  checkOut: string;        // HH:MM:SS (IST, same as checkIn if only one punch)
   punches: number;
-}
-
-function localDateStr(d: Date): string {
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
-
-function localTimeStr(d: Date): string {
-  const h = String(d.getHours()).padStart(2, "0");
-  const m = String(d.getMinutes()).padStart(2, "0");
-  const s = String(d.getSeconds()).padStart(2, "0");
-  return `${h}:${m}:${s}`;
 }
 
 export function aggregateByDay(punches: EsslPunch[]): AggregatedDay[] {
   const buckets = new Map<string, EsslPunch[]>();
   for (const p of punches) {
-    const key = `${p.userId}|${localDateStr(p.time)}`;
+    const key = `${p.userId}|${dateIST(p.time)}`;
     const arr = buckets.get(key) ?? [];
     arr.push(p);
     buckets.set(key, arr);
@@ -127,8 +116,8 @@ export function aggregateByDay(punches: EsslPunch[]): AggregatedDay[] {
     out.push({
       userId,
       date,
-      checkIn: localTimeStr(arr[0].time),
-      checkOut: localTimeStr(arr[arr.length - 1].time),
+      checkIn: timeIST(arr[0].time),
+      checkOut: timeIST(arr[arr.length - 1].time),
       punches: arr.length,
     });
   }

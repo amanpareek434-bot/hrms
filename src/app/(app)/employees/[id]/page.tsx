@@ -110,7 +110,7 @@ export default function EmployeeDetailPage() {
         }
       />
 
-      <div className="space-y-6 p-6">
+      <div className="mx-auto max-w-screen-2xl space-y-6 p-4 sm:p-6 lg:px-8">
         {/* Profile card */}
         <section className="card">
           <div className="flex flex-wrap items-start justify-between gap-6">
