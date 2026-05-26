@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     const id = body.id || uid("e-");
     await exec(
       `INSERT INTO employees (id, employee_code, essl_user_id, first_name, last_name, email, phone, department, designation, joining_date, date_of_birth, salary, status, address)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         body.employeeCode,
