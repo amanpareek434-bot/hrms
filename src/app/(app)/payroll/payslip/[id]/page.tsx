@@ -58,7 +58,7 @@ export default function PayslipPage() {
             ) : (
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} className="h-6 w-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                  <g strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 19.5v-1.5a4 4 0 014-4h5a4 4 0 014 4v1.5"/><circle cx="17" cy="6.5" r="2.2"/><path d="M16.5 14h1a3.3 3.3 0 013.3 3.3v1.2"/></g>
                 </svg>
               </div>
             )}

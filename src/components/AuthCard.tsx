@@ -23,7 +23,7 @@ export default function AuthCard({
           <Link href="/" className="flex items-center gap-3 text-white">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 backdrop-blur">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-6 w-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                <g strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 19.5v-1.5a4 4 0 014-4h5a4 4 0 014 4v1.5"/><circle cx="17" cy="6.5" r="2.2"/><path d="M16.5 14h1a3.3 3.3 0 013.3 3.3v1.2"/></g>
               </svg>
             </div>
             <div>
@@ -64,7 +64,7 @@ export default function AuthCard({
             <Link href="/" className="mb-8 inline-flex items-center gap-3 lg:hidden">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="h-5 w-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                  <g strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 19.5v-1.5a4 4 0 014-4h5a4 4 0 014 4v1.5"/><circle cx="17" cy="6.5" r="2.2"/><path d="M16.5 14h1a3.3 3.3 0 013.3 3.3v1.2"/></g>
                 </svg>
               </div>
               <span className="text-lg font-semibold text-slate-900 dark:text-slate-100">PeopleHub</span>
