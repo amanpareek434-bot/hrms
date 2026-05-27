@@ -1,0 +1,342 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif">
+  <defs>
+    <!-- Palette A: cyan/teal/emerald -->
+    <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="60%" stop-color="#14b8a6"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <!-- Palette B: deep indigo to sky -->
+    <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <!-- Palette C: sunset amber to coral -->
+    <linearGradient id="gC" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="55%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <!-- Palette D: slate with lime accent -->
+    <linearGradient id="gD" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="560" fill="#0b0d1a"/>
+  <text x="450" y="36" fill="#94a3b8" font-size="14" text-anchor="middle" letter-spacing="3">PEOPLEHUB — FRESH LOGO DIRECTIONS</text>
+
+  <!-- ============================================================
+       OPTION A — Honeycomb hex cluster
+       Concept: connected team cells, modern/tech
+       ============================================================ -->
+  <g transform="translate(60,90)">
+    <text x="80" y="-18" fill="#cbd5e1" font-size="14" text-anchor="middle" font-weight="600">Option A</text>
+    <text x="80" y="2" fill="#64748b" font-size="11" text-anchor="middle">Honeycomb — connected cells</text>
+    <rect x="-8" y="8" width="176" height="176" rx="44" fill="url(#gA)" opacity="0.3" filter="url(#soft)"/>
+    <rect width="160" height="160" rx="36" fill="url(#gA)"/>
+    <!-- center hex + 6 surrounding -->
+    <g transform="translate(80,80)" stroke="#ffffff" stroke-width="3" fill="none" stroke-linejoin="round">
+      <!-- center filled -->
+      <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#ffffff" stroke="none"/>
+      <!-- outer ring -->
+      <polygon points="0,-58 19,-47 19,-25 0,-14 -19,-25 -19,-47"/>
+      <polygon points="38,-22 57,-11 57,11 38,22 19,11 19,-11"/>
+      <polygon points="38,22 57,33 57,55 38,66 19,55 19,33"/>
+      <polygon points="0,58 19,47 19,25 0,14 -19,25 -19,47" fill="#ffffff" fill-opacity="0.85" stroke="none"/>
+      <polygon points="-38,22 -19,33 -19,55 -38,66 -57,55 -57,33"/>
+      <polygon points="-38,-22 -19,-11 -19,11 -38,22 -57,11 -57,-11"/>
+    </g>
+    <!-- wordmark row -->
+    <g transform="translate(0,200)">
+      <rect width="50" height="50" rx="12" fill="url(#gA)"/>
+      <g transform="translate(25,25)" stroke="#ffffff" stroke-width="1.6" fill="none">
+        <polygon points="0,-7 6,-3.5 6,3.5 0,7 -6,3.5 -6,-3.5" fill="#fff" stroke="none"/>
+        <polygon points="0,-18 6,-14.5 6,-7.5 0,-4 -6,-7.5 -6,-14.5"/>
+        <polygon points="12,-7 18,-3.5 18,3.5 12,7 6,3.5 6,-3.5"/>
+        <polygon points="0,18 6,14.5 6,7.5 0,4 -6,7.5 -6,14.5" stroke="#fff" stroke-opacity="0.9"/>
+        <polygon points="-12,-7 -6,-3.5 -6,3.5 -12,7 -18,3.5 -18,-3.5"/>
+      </g>
+      <text x="62" y="32" fill="#f8fafc" font-size="22" font-weight="700" letter-spacing="-0.3">PeopleHub</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       OPTION B — Bold "H" with upward growth arrow
+       Concept: HR + growth/people advancement
+       ============================================================ -->
+  <g transform="translate(290,90)">
+    <text x="80" y="-18" fill="#cbd5e1" font-size="14" text-anchor="middle" font-weight="600">Option B</text>
+    <text x="80" y="2" fill="#64748b" font-size="11" text-anchor="middle">Letter “H” + growth arrow</text>
+    <rect x="-8" y="8" width="176" height="176" rx="44" fill="url(#gB)" opacity="0.3" filter="url(#soft)"/>
+    <rect width="160" height="160" rx="36" fill="url(#gB)"/>
+    <!-- H pillars -->
+    <rect x="34" y="34" width="22" height="92" rx="6" fill="#ffffff"/>
+    <rect x="104" y="34" width="22" height="92" rx="6" fill="#ffffff"/>
+    <!-- crossbar -->
+    <rect x="56" y="74" width="48" height="14" rx="4" fill="#ffffff"/>
+    <!-- ascending arrow on right pillar -->
+    <path d="M104 34 L132 14 M132 14 L132 28 M132 14 L118 14"
+          stroke="#34d399" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- person dot inside crossbar (subtle) -->
+    <circle cx="80" cy="81" r="5" fill="url(#gB)"/>
+    <g transform="translate(0,200)">
+      <rect width="50" height="50" rx="12" fill="url(#gB)"/>
+      <rect x="11" y="11" width="7" height="28" rx="2" fill="#fff"/>
+      <rect x="32" y="11" width="7" height="28" rx="2" fill="#fff"/>
+      <rect x="18" y="23" width="14" height="5" rx="1.5" fill="#fff"/>
+      <path d="M32 11 L41 5 M41 5 L41 9 M41 5 L37 5" stroke="#34d399" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <text x="62" y="32" fill="#f8fafc" font-size="22" font-weight="700" letter-spacing="-0.3">PeopleHub</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       OPTION C — Smile / friendly face
+       Concept: approachable HR, employee happiness
+       ============================================================ -->
+  <g transform="translate(520,90)">
+    <text x="80" y="-18" fill="#cbd5e1" font-size="14" text-anchor="middle" font-weight="600">Option C</text>
+    <text x="80" y="2" fill="#64748b" font-size="11" text-anchor="middle">Friendly arc — employee happiness</text>
+    <rect x="-8" y="8" width="176" height="176" rx="44" fill="url(#gC)" opacity="0.3" filter="url(#soft)"/>
+    <rect width="160" height="160" rx="36" fill="url(#gC)"/>
+    <!-- eyes -->
+    <circle cx="56" cy="58" r="9" fill="#ffffff"/>
+    <circle cx="104" cy="58" r="9" fill="#ffffff"/>
+    <!-- smile arc -->
+    <path d="M38 92 Q80 134 122 92" stroke="#ffffff" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <!-- small dot above (the "hub" node) -->
+    <circle cx="80" cy="26" r="6" fill="#ffffff" fill-opacity="0.85"/>
+    <g transform="translate(0,200)">
+      <rect width="50" height="50" rx="12" fill="url(#gC)"/>
+      <circle cx="18" cy="20" r="3" fill="#fff"/>
+      <circle cx="32" cy="20" r="3" fill="#fff"/>
+      <path d="M14 30 Q25 40 36 30" stroke="#fff" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+      <text x="62" y="32" fill="#f8fafc" font-size="22" font-weight="700" letter-spacing="-0.3">PeopleHub</text>
+    </g>
+  </g>
+
+  <!-- ============================================================
+       OPTION D — Constellation / network of nodes
+       Concept: team as a connected network
+       ============================================================ -->
+  <g transform="translate(750,90)">
+    <text x="80" y="-18" fill="#cbd5e1" font-size="14" text-anchor="middle" font-weight="600">Option D</text>
+    <text x="80" y="2" fill="#64748b" font-size="11" text-anchor="middle">Constellation — team network</text>
+    <rect x="-8" y="8" width="176" height="176" rx="44" fill="url(#gD)" opacity="0.5" filter="url(#soft)"/>
+    <rect width="160" height="160" rx="36" fill="url(#gD)"/>
+    <!-- subtle grid -->
+    <g stroke="#334155" stroke-width="0.6" opacity="0.5">
+      <line x1="0" y1="40" x2="160" y2="40"/>
+      <line x1="0" y1="80" x2="160" y2="80"/>
+      <line x1="0" y1="120" x2="160" y2="120"/>
+      <line x1="40" y1="0" x2="40" y2="160"/>
+      <line x1="80" y1="0" x2="80" y2="160"/>
+      <line x1="120" y1="0" x2="120" y2="160"/>
+    </g>
+    <!-- connections -->
+    <g stroke="#a3e635" stroke-width="1.8" stroke-linecap="round">
+      <line x1="80" y1="80" x2="32" y2="40"/>
+      <line x1="80" y1="80" x2="128" y2="36"/>
+      <line x1="80" y1="80" x2="40" y2="124"/>
+      <line x1="80" y1="80" x2="124" y2="124"/>
+      <line x1="32" y1="40" x2="128" y2="36"/>
+      <line x1="40" y1="124" x2="124" y2="124"/>
+    </g>
+    <!-- nodes -->
+    <circle cx="32" cy="40" r="7" fill="#a3e635"/>
+    <circle cx="128" cy="36" r="7" fill="#a3e635"/>
+    <circle cx="40" cy="124" r="7" fill="#a3e635"/>
+    <circle cx="124" cy="124" r="7" fill="#a3e635"/>
+    <!-- center -->
+    <circle cx="80" cy="80" r="14" fill="#a3e635"/>
+    <circle cx="80" cy="80" r="6" fill="#0f172a"/>
+    <g transform="translate(0,200)">
+      <rect width="50" height="50" rx="12" fill="url(#gD)"/>
+      <g stroke="#a3e635" stroke-width="1" stroke-linecap="round">
+        <line x1="25" y1="25" x2="10" y2="12"/>
+        <line x1="25" y1="25" x2="40" y2="12"/>
+        <line x1="25" y1="25" x2="12" y2="40"/>
+        <line x1="25" y1="25" x2="38" y2="40"/>
+      </g>
+      <circle cx="10" cy="12" r="2.4" fill="#a3e635"/>
+      <circle cx="40" cy="12" r="2.4" fill="#a3e635"/>
+      <circle cx="12" cy="40" r="2.4" fill="#a3e635"/>
+      <circle cx="38" cy="40" r="2.4" fill="#a3e635"/>
+      <circle cx="25" cy="25" r="4.5" fill="#a3e635"/>
+      <text x="62" y="32" fill="#f8fafc" font-size="22" font-weight="700" letter-spacing="-0.3">PeopleHub</text>
+    </g>
+  </g>
+
+  <!-- favicon size strip — shows all 4 marks at small size for direct comparison -->
+  <g transform="translate(60,470)">
+    <text x="0" y="-8" fill="#64748b" font-size="11">Favicon comparison @ 16 / 24 / 32 / 48 px</text>
+
+    <!-- Row for A -->
+    <g transform="translate(0,4)">
+      <text x="-12" y="22" fill="#94a3b8" font-size="11" text-anchor="end">A</text>
+      <g transform="translate(0,8)">
+        <rect width="16" height="16" rx="3.6" fill="url(#gA)"/>
+        <g transform="translate(8,8)" stroke="#fff" stroke-width="0.7" fill="none">
+          <polygon points="0,-2.2 1.9,-1.1 1.9,1.1 0,2.2 -1.9,1.1 -1.9,-1.1" fill="#fff" stroke="none"/>
+          <polygon points="0,-5.8 1.9,-4.7 1.9,-2.5 0,-1.4 -1.9,-2.5 -1.9,-4.7"/>
+          <polygon points="3.8,-2.2 5.7,-1.1 5.7,1.1 3.8,2.2 1.9,1.1 1.9,-1.1"/>
+          <polygon points="0,5.8 1.9,4.7 1.9,2.5 0,1.4 -1.9,2.5 -1.9,4.7"/>
+          <polygon points="-3.8,-2.2 -1.9,-1.1 -1.9,1.1 -3.8,2.2 -5.7,1.1 -5.7,-1.1"/>
+        </g>
+      </g>
+      <g transform="translate(30,4)">
+        <rect width="24" height="24" rx="5.4" fill="url(#gA)"/>
+        <g transform="translate(12,12)" stroke="#fff" stroke-width="1" fill="none">
+          <polygon points="0,-3.3 2.9,-1.7 2.9,1.7 0,3.3 -2.9,1.7 -2.9,-1.7" fill="#fff" stroke="none"/>
+          <polygon points="0,-8.7 2.9,-7 2.9,-3.7 0,-2 -2.9,-3.7 -2.9,-7"/>
+          <polygon points="5.7,-3.3 8.6,-1.7 8.6,1.7 5.7,3.3 2.9,1.7 2.9,-1.7"/>
+          <polygon points="0,8.7 2.9,7 2.9,3.7 0,2 -2.9,3.7 -2.9,7"/>
+          <polygon points="-5.7,-3.3 -2.9,-1.7 -2.9,1.7 -5.7,3.3 -8.6,1.7 -8.6,-1.7"/>
+        </g>
+      </g>
+      <g transform="translate(70,0)">
+        <rect width="32" height="32" rx="7.2" fill="url(#gA)"/>
+        <g transform="translate(16,16)" stroke="#fff" stroke-width="1.3" fill="none">
+          <polygon points="0,-4.4 3.8,-2.2 3.8,2.2 0,4.4 -3.8,2.2 -3.8,-2.2" fill="#fff" stroke="none"/>
+          <polygon points="0,-11.6 3.8,-9.4 3.8,-5 0,-2.8 -3.8,-5 -3.8,-9.4"/>
+          <polygon points="7.6,-4.4 11.4,-2.2 11.4,2.2 7.6,4.4 3.8,2.2 3.8,-2.2"/>
+          <polygon points="0,11.6 3.8,9.4 3.8,5 0,2.8 -3.8,5 -3.8,9.4"/>
+          <polygon points="-7.6,-4.4 -3.8,-2.2 -3.8,2.2 -7.6,4.4 -11.4,2.2 -11.4,-2.2"/>
+        </g>
+      </g>
+      <g transform="translate(120,-8)">
+        <rect width="48" height="48" rx="10.8" fill="url(#gA)"/>
+        <g transform="translate(24,24)" stroke="#fff" stroke-width="1.9" fill="none">
+          <polygon points="0,-6.6 5.7,-3.3 5.7,3.3 0,6.6 -5.7,3.3 -5.7,-3.3" fill="#fff" stroke="none"/>
+          <polygon points="0,-17.4 5.7,-14.1 5.7,-7.5 0,-4.2 -5.7,-7.5 -5.7,-14.1"/>
+          <polygon points="11.4,-6.6 17.1,-3.3 17.1,3.3 11.4,6.6 5.7,3.3 5.7,-3.3"/>
+          <polygon points="0,17.4 5.7,14.1 5.7,7.5 0,4.2 -5.7,7.5 -5.7,14.1"/>
+          <polygon points="-11.4,-6.6 -5.7,-3.3 -5.7,3.3 -11.4,6.6 -17.1,3.3 -17.1,-3.3"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- Row for B -->
+    <g transform="translate(0,46)">
+      <text x="-12" y="22" fill="#94a3b8" font-size="11" text-anchor="end">B</text>
+      <g transform="translate(0,8)">
+        <rect width="16" height="16" rx="3.6" fill="url(#gB)"/>
+        <rect x="4" y="3" width="2" height="10" rx="0.6" fill="#fff"/>
+        <rect x="10" y="3" width="2" height="10" rx="0.6" fill="#fff"/>
+        <rect x="6" y="7" width="4" height="2" rx="0.4" fill="#fff"/>
+      </g>
+      <g transform="translate(30,4)">
+        <rect width="24" height="24" rx="5.4" fill="url(#gB)"/>
+        <rect x="6" y="5" width="3" height="14" rx="0.9" fill="#fff"/>
+        <rect x="15" y="5" width="3" height="14" rx="0.9" fill="#fff"/>
+        <rect x="9" y="11" width="6" height="3" rx="0.6" fill="#fff"/>
+      </g>
+      <g transform="translate(70,0)">
+        <rect width="32" height="32" rx="7.2" fill="url(#gB)"/>
+        <rect x="8" y="7" width="4" height="18" rx="1.2" fill="#fff"/>
+        <rect x="20" y="7" width="4" height="18" rx="1.2" fill="#fff"/>
+        <rect x="12" y="14" width="8" height="4" rx="0.8" fill="#fff"/>
+      </g>
+      <g transform="translate(120,-8)">
+        <rect width="48" height="48" rx="10.8" fill="url(#gB)"/>
+        <rect x="11" y="10" width="6" height="28" rx="1.8" fill="#fff"/>
+        <rect x="31" y="10" width="6" height="28" rx="1.8" fill="#fff"/>
+        <rect x="17" y="22" width="14" height="5" rx="1.2" fill="#fff"/>
+      </g>
+    </g>
+
+    <!-- Row for C -->
+    <g transform="translate(0,88)">
+      <text x="-12" y="22" fill="#94a3b8" font-size="11" text-anchor="end">C</text>
+      <g transform="translate(0,8)">
+        <rect width="16" height="16" rx="3.6" fill="url(#gC)"/>
+        <circle cx="6" cy="6.5" r="1.1" fill="#fff"/>
+        <circle cx="10.5" cy="6.5" r="1.1" fill="#fff"/>
+        <path d="M4.5 9.5 Q8.2 13.2 11.8 9.5" stroke="#fff" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+      </g>
+      <g transform="translate(30,4)">
+        <rect width="24" height="24" rx="5.4" fill="url(#gC)"/>
+        <circle cx="9" cy="10" r="1.6" fill="#fff"/>
+        <circle cx="16" cy="10" r="1.6" fill="#fff"/>
+        <path d="M7 14 Q12.5 19 18 14" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+      </g>
+      <g transform="translate(70,0)">
+        <rect width="32" height="32" rx="7.2" fill="url(#gC)"/>
+        <circle cx="12" cy="13" r="2" fill="#fff"/>
+        <circle cx="20" cy="13" r="2" fill="#fff"/>
+        <path d="M9 19 Q16 26 23 19" stroke="#fff" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+      </g>
+      <g transform="translate(120,-8)">
+        <rect width="48" height="48" rx="10.8" fill="url(#gC)"/>
+        <circle cx="17" cy="19" r="3" fill="#fff"/>
+        <circle cx="31" cy="19" r="3" fill="#fff"/>
+        <path d="M12 28 Q24 39 36 28" stroke="#fff" stroke-width="3.6" stroke-linecap="round" fill="none"/>
+      </g>
+    </g>
+
+    <!-- Row for D -->
+    <g transform="translate(0,130)">
+      <text x="-12" y="22" fill="#94a3b8" font-size="11" text-anchor="end">D</text>
+      <g transform="translate(0,8)">
+        <rect width="16" height="16" rx="3.6" fill="url(#gD)"/>
+        <g stroke="#a3e635" stroke-width="0.5" stroke-linecap="round">
+          <line x1="8" y1="8" x2="3.5" y2="4"/>
+          <line x1="8" y1="8" x2="12.5" y2="4"/>
+          <line x1="8" y1="8" x2="4" y2="12.5"/>
+          <line x1="8" y1="8" x2="12" y2="12.5"/>
+        </g>
+        <circle cx="3.5" cy="4" r="1.1" fill="#a3e635"/>
+        <circle cx="12.5" cy="4" r="1.1" fill="#a3e635"/>
+        <circle cx="4" cy="12.5" r="1.1" fill="#a3e635"/>
+        <circle cx="12" cy="12.5" r="1.1" fill="#a3e635"/>
+        <circle cx="8" cy="8" r="1.8" fill="#a3e635"/>
+      </g>
+      <g transform="translate(30,4)">
+        <rect width="24" height="24" rx="5.4" fill="url(#gD)"/>
+        <g stroke="#a3e635" stroke-width="0.7" stroke-linecap="round">
+          <line x1="12" y1="12" x2="5" y2="6"/>
+          <line x1="12" y1="12" x2="19" y2="6"/>
+          <line x1="12" y1="12" x2="6" y2="19"/>
+          <line x1="12" y1="12" x2="18" y2="19"/>
+        </g>
+        <circle cx="5" cy="6" r="1.4" fill="#a3e635"/>
+        <circle cx="19" cy="6" r="1.4" fill="#a3e635"/>
+        <circle cx="6" cy="19" r="1.4" fill="#a3e635"/>
+        <circle cx="18" cy="19" r="1.4" fill="#a3e635"/>
+        <circle cx="12" cy="12" r="2.6" fill="#a3e635"/>
+      </g>
+      <g transform="translate(70,0)">
+        <rect width="32" height="32" rx="7.2" fill="url(#gD)"/>
+        <g stroke="#a3e635" stroke-width="0.9" stroke-linecap="round">
+          <line x1="16" y1="16" x2="7" y2="8"/>
+          <line x1="16" y1="16" x2="25" y2="8"/>
+          <line x1="16" y1="16" x2="8" y2="25"/>
+          <line x1="16" y1="16" x2="24" y2="25"/>
+        </g>
+        <circle cx="7" cy="8" r="1.8" fill="#a3e635"/>
+        <circle cx="25" cy="8" r="1.8" fill="#a3e635"/>
+        <circle cx="8" cy="25" r="1.8" fill="#a3e635"/>
+        <circle cx="24" cy="25" r="1.8" fill="#a3e635"/>
+        <circle cx="16" cy="16" r="3.6" fill="#a3e635"/>
+      </g>
+      <g transform="translate(120,-8)">
+        <rect width="48" height="48" rx="10.8" fill="url(#gD)"/>
+        <g stroke="#a3e635" stroke-width="1.4" stroke-linecap="round">
+          <line x1="24" y1="24" x2="10" y2="12"/>
+          <line x1="24" y1="24" x2="38" y2="12"/>
+          <line x1="24" y1="24" x2="12" y2="38"/>
+          <line x1="24" y1="24" x2="36" y2="38"/>
+        </g>
+        <circle cx="10" cy="12" r="2.8" fill="#a3e635"/>
+        <circle cx="38" cy="12" r="2.8" fill="#a3e635"/>
+        <circle cx="12" cy="38" r="2.8" fill="#a3e635"/>
+        <circle cx="36" cy="38" r="2.8" fill="#a3e635"/>
+        <circle cx="24" cy="24" r="5.4" fill="#a3e635"/>
+      </g>
+    </g>
+  </g>
+</svg>

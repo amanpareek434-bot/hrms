@@ -12,6 +12,7 @@ import {
   useCandidates,
   useDepartments,
   useEmployees,
+  useExpenses,
   useHolidays,
   useLeaves,
   usePayroll,
@@ -30,6 +31,7 @@ export default function DashboardPage() {
   const { data: assets } = useAssets();
   const { data: candidates } = useCandidates();
   const { data: reviews } = useReviews();
+  const { data: expenses } = useExpenses();
 
   const today = new Date().toISOString().slice(0, 10);
   const todaysAttendance = attendance.filter((a) => a.date === today);
@@ -77,6 +79,10 @@ export default function DashboardPage() {
 
   // Pending reviews (Draft + Submitted)
   const pendingReviews = reviews.filter((r) => r.status !== "Acknowledged").length;
+
+  // Expenses awaiting approval
+  const pendingExpenses = expenses.filter((e) => e.status === "Pending");
+  const pendingExpensesAmt = pendingExpenses.reduce((s, e) => s + Number(e.amount), 0);
 
   return (
     <>
@@ -160,6 +166,16 @@ export default function DashboardPage() {
             tone="rose"
             icon={<Icon path="M9 19V6l12-3v13M9 19a3 3 0 100-6 3 3 0 000 6zm12-3a3 3 0 100-6 3 3 0 000 6z" />}
           />
+          <StatCard
+            label="Pending Expenses"
+            value={pendingExpenses.length}
+            delta={pendingExpenses.length ? formatCurrency(pendingExpensesAmt) : "All clear"}
+            tone="amber"
+            icon={<Icon path="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m10 4H9a2 2 0 01-2-2v-6a2 2 0 012-2h10a2 2 0 012 2v6a2 2 0 01-2 2zm-7-5a2 2 0 11-4 0 2 2 0 014 0z" />}
+          />
+        </section>
+
+        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <StatCard
             label="Holidays Ahead"
             value={upcomingHolidays.length}

@@ -167,6 +167,38 @@ export interface CompanySettings {
   weeklyOffs: string;
 }
 
+export type ExpenseCategory =
+  | "Travel"
+  | "Food"
+  | "Accommodation"
+  | "Internet"
+  | "Phone"
+  | "Office Supplies"
+  | "Client Entertainment"
+  | "Training"
+  | "Medical"
+  | "Other";
+
+export type ExpenseStatus = "Pending" | "Approved" | "Rejected" | "Reimbursed";
+
+export interface Expense {
+  id: string;
+  employeeId: string;
+  expenseDate: string; // YYYY-MM-DD
+  category: ExpenseCategory;
+  amount: number;
+  currency: string;
+  merchant?: string;
+  description?: string;
+  attachmentUrl?: string;
+  status: ExpenseStatus;
+  approverId?: string;
+  approvedAt?: string;
+  rejectedReason?: string;
+  paidInPayrollId?: string;
+  createdAt?: string;
+}
+
 export type ReviewStatus = "Draft" | "Submitted" | "Acknowledged";
 
 export interface PerformanceReview {

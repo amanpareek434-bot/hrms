@@ -10,6 +10,7 @@ import type {
   Department,
   Employee,
   EmployeeDocument,
+  Expense,
   Holiday,
   LeaveRequest,
   PayrollRecord,
@@ -282,6 +283,37 @@ export function useDocuments(employeeId?: string) {
     },
     remove: async (id: string) => {
       await http(`/api/documents/${id}`, { method: "DELETE" });
+      await state.refresh();
+    },
+  };
+}
+
+// Expenses / Reimbursements
+export function useExpenses(opts?: { employeeId?: string; status?: string }) {
+  const qs = new URLSearchParams();
+  if (opts?.employeeId) qs.set("employeeId", opts.employeeId);
+  if (opts?.status) qs.set("status", opts.status);
+  const url = `/api/expenses${qs.toString() ? "?" + qs.toString() : ""}`;
+  const state = useApiList<Expense>(url);
+  return {
+    ...state,
+    create: async (e: Omit<Expense, "id" | "createdAt">) => {
+      await http("/api/expenses", { method: "POST", body: JSON.stringify(e) });
+      await state.refresh();
+    },
+    update: async (id: string, patch: Partial<Expense>) => {
+      await http(`/api/expenses/${id}`, { method: "PATCH", body: JSON.stringify(patch) });
+      await state.refresh();
+    },
+    setStatus: async (id: string, status: string, rejectedReason?: string) => {
+      await http(`/api/expenses/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ status, rejectedReason }),
+      });
+      await state.refresh();
+    },
+    remove: async (id: string) => {
+      await http(`/api/expenses/${id}`, { method: "DELETE" });
       await state.refresh();
     },
   };
