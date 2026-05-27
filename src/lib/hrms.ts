@@ -400,6 +400,41 @@ export function computeLeaveBalances(
   });
 }
 
+// Auto-generates the next employee code based on existing codes.
+// Looks at all codes, extracts the prefix + numeric suffix from the most
+// recent one, finds the max numeric suffix across all matching codes,
+// and returns prefix + (max + 1) zero-padded to the original width.
+// Fallback: "EMP1001" when no codes exist or none have a numeric suffix.
+export function nextEmployeeCode(existing: { employeeCode: string }[]): string {
+  const codes = existing
+    .map((e) => e.employeeCode)
+    .filter((c): c is string => Boolean(c && c.trim()));
+
+  if (codes.length === 0) return "EMP1001";
+
+  // Parse each: prefix + trailing digits (e.g. "EMP1001" → ["EMP", "1001"])
+  const parsed = codes
+    .map((c) => {
+      const m = c.match(/^([A-Za-z\-_/]*?)(\d+)$/);
+      if (!m) return null;
+      return { prefix: m[1] || "EMP", num: parseInt(m[2], 10), width: m[2].length };
+    })
+    .filter((p): p is { prefix: string; num: number; width: number } => p !== null);
+
+  if (parsed.length === 0) return "EMP" + (1001 + codes.length);
+
+  // Most common prefix (so eSSL-imported "ESSL-123" codes don't pollute "EMP" series)
+  const prefixCounts = new Map<string, number>();
+  for (const p of parsed) prefixCounts.set(p.prefix, (prefixCounts.get(p.prefix) || 0) + 1);
+  const dominantPrefix = [...prefixCounts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+
+  const matching = parsed.filter((p) => p.prefix === dominantPrefix);
+  const maxNum = Math.max(...matching.map((p) => p.num));
+  const width = Math.max(...matching.map((p) => p.width));
+  const next = String(maxNum + 1).padStart(width, "0");
+  return dominantPrefix + next;
+}
+
 // Formatters
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat("en-IN", {

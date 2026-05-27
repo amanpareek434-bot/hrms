@@ -5,7 +5,7 @@ import { useMemo, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import { downloadCSV, parseCSV, toCSV } from "@/lib/csv";
-import { formatCurrency, formatDate, initials, useDepartments, useEmployees } from "@/lib/hrms";
+import { formatCurrency, formatDate, initials, nextEmployeeCode, useDepartments, useEmployees } from "@/lib/hrms";
 import type { Employee, EmployeeStatus } from "@/lib/types";
 
 const STATUSES: EmployeeStatus[] = ["Active", "On Leave", "Resigned", "Terminated"];
@@ -94,7 +94,7 @@ export default function EmployeesPage() {
 
   function openCreate() {
     setEditingId(null);
-    setForm({ ...EMPTY, employeeCode: `EMP${1000 + employees.length + 1}` });
+    setForm({ ...EMPTY, employeeCode: nextEmployeeCode(employees) });
     setModalOpen(true);
   }
 
@@ -373,7 +373,29 @@ export default function EmployeesPage() {
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editingId ? "Edit Employee" : "Add Employee"} size="lg">
         <form className="grid grid-cols-1 gap-4 md:grid-cols-2" onSubmit={handleSubmit}>
           <Field label="Employee Code">
-            <input className="input" value={form.employeeCode} onChange={(e) => setForm({ ...form, employeeCode: e.target.value })} required />
+            <div className="flex gap-2">
+              <input
+                className="input flex-1"
+                value={form.employeeCode}
+                onChange={(e) => setForm({ ...form, employeeCode: e.target.value })}
+                required
+              />
+              {!editingId ? (
+                <button
+                  type="button"
+                  className="btn-secondary whitespace-nowrap text-xs"
+                  onClick={() => setForm({ ...form, employeeCode: nextEmployeeCode(employees) })}
+                  title="Auto-generate next code"
+                >
+                  Auto
+                </button>
+              ) : null}
+            </div>
+            {!editingId ? (
+              <p className="mt-1 text-xs text-slate-500">
+                Auto-suggested as next sequential code. Edit if you use a different scheme.
+              </p>
+            ) : null}
           </Field>
           <Field label="eSSL User ID">
             <input

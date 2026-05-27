@@ -1,5 +1,11 @@
 import Link from "next/link";
 import LandingHeader from "@/components/LandingHeader";
+import AnimatedCounter from "@/components/landing/AnimatedCounter";
+import ComparisonTable from "@/components/landing/ComparisonTable";
+import FeatureTabs from "@/components/landing/FeatureTabs";
+import RoiCalculator from "@/components/landing/RoiCalculator";
+import ScrollProgress from "@/components/landing/ScrollProgress";
+import Testimonials from "@/components/landing/Testimonials";
 import { getCurrentUser } from "@/lib/auth";
 
 export default async function LandingPage() {
@@ -7,6 +13,7 @@ export default async function LandingPage() {
 
   return (
     <div className="bg-white dark:bg-ink-950">
+      <ScrollProgress />
       <LandingHeader user={user} />
 
       {/* ============================================ */}
@@ -27,21 +34,22 @@ export default async function LandingPage() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
             </span>
-            New · eSSL biometric sync · Self-service portal · Cmd+K · Dark mode
+            New · Expense reimbursement · WebAuthn punch-in · eSSL sync · Cmd+K
           </div>
 
           <h1 className="mx-auto mt-6 max-w-4xl text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
-            The complete HRMS,
+            Replace 5 HR tools
             <br />
             <span className="bg-gradient-to-r from-violet-300 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent">
-              for the modern workplace.
+              with one workspace.
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
-            15 integrated modules — Employees, Attendance, Leaves, Payroll, Recruitment, Performance, Assets,
-            Documents, Calendar, Reports + plug-and-play <strong className="text-white">eSSL biometric sync</strong>.
-            Admins manage. Employees self-serve. All on your own MySQL.
+            16 integrated modules — Employees, Attendance, Leaves, Payroll, Recruitment, Performance, Assets,
+            Documents, Expenses + plug-and-play <strong className="text-white">eSSL biometric sync</strong> and
+            <strong className="text-white"> WebAuthn fingerprint punch-in</strong>. Admins manage. Employees self-serve.
+            On your own MySQL, never ours.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -76,20 +84,40 @@ export default async function LandingPage() {
           <p className="mt-4 text-xs text-white/50">No credit card required · Self-hosted · MySQL backed · 100% open source</p>
 
           {/* Stats strip */}
-          <div className="mx-auto mt-16 grid max-w-3xl grid-cols-2 gap-6 border-y border-white/10 py-8 text-left sm:grid-cols-4">
-            {[
-              { v: "15+", l: "Integrated modules" },
-              { v: "eSSL", l: "Biometric ready" },
-              { v: "2", l: "Portals: admin + employee" },
-              { v: "100%", l: "Open source" },
-            ].map((s) => (
-              <div key={s.l}>
-                <p className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-3xl font-bold text-transparent">
-                  {s.v}
-                </p>
-                <p className="text-xs uppercase tracking-wider text-white/50">{s.l}</p>
-              </div>
-            ))}
+          <div className="mx-auto mt-16 grid max-w-4xl grid-cols-2 gap-6 border-y border-white/10 py-8 text-left sm:grid-cols-4">
+            <Stat>
+              <AnimatedCounter
+                to={16}
+                suffix="+"
+                className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-3xl font-bold text-transparent"
+              />
+              <p className="text-xs uppercase tracking-wider text-white/50">Integrated modules</p>
+            </Stat>
+            <Stat>
+              <AnimatedCounter
+                to={85}
+                suffix="%"
+                className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-3xl font-bold text-transparent"
+              />
+              <p className="text-xs uppercase tracking-wider text-white/50">Less manual work</p>
+            </Stat>
+            <Stat>
+              <AnimatedCounter
+                to={5}
+                prefix="<"
+                suffix=" min"
+                className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-3xl font-bold text-transparent"
+              />
+              <p className="text-xs uppercase tracking-wider text-white/50">Setup time</p>
+            </Stat>
+            <Stat>
+              <AnimatedCounter
+                to={100}
+                suffix="%"
+                className="bg-gradient-to-br from-white to-white/60 bg-clip-text text-3xl font-bold text-transparent"
+              />
+              <p className="text-xs uppercase tracking-wider text-white/50">Open source</p>
+            </Stat>
           </div>
 
           {/* Dashboard preview — glass card */}
@@ -275,6 +303,18 @@ export default async function LandingPage() {
                 tone: "from-pink-400 to-rose-500",
               },
               {
+                title: "Expense reimbursement",
+                desc: "Employees submit bills with receipt links. Managers approve in one click. Approved amounts flow straight into the next payroll cycle.",
+                icon: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m10 4H9a2 2 0 01-2-2v-6a2 2 0 012-2h10a2 2 0 012 2v6a2 2 0 01-2 2zm-7-5a2 2 0 11-4 0 2 2 0 014 0z",
+                tone: "from-emerald-500 to-cyan-500",
+              },
+              {
+                title: "WebAuthn fingerprint",
+                desc: "Employees enroll their phone fingerprint or Face ID once, then punch in/out with a single tap — no app install, biometric stays on device.",
+                icon: "M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4",
+                tone: "from-fuchsia-500 to-pink-500",
+              },
+              {
                 title: "Unified calendar",
                 desc: "One monthly view layering holidays, approved leaves, birthdays and work anniversaries.",
                 icon: "M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z",
@@ -313,15 +353,74 @@ export default async function LandingPage() {
       </section>
 
       {/* ============================================ */}
+      {/* INTERACTIVE: FEATURE TABS                     */}
+      {/* ============================================ */}
+      <section className="bg-white py-24 dark:bg-ink-950">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-sm font-semibold uppercase tracking-wider text-transparent">
+              Built for everyone
+            </p>
+            <h2 className="mt-2 text-4xl font-bold text-slate-900 dark:text-slate-100">
+              Three audiences. One product.
+            </h2>
+            <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+              See the parts that matter to you — HR admins, employees, or the biometric device sitting at the gate.
+            </p>
+          </div>
+          <div className="mt-12">
+            <FeatureTabs />
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================ */}
+      {/* INTERACTIVE: ROI CALCULATOR                   */}
+      {/* ============================================ */}
+      <section className="bg-slate-50 py-24 dark:bg-ink-900">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-sm font-semibold uppercase tracking-wider text-transparent">
+              The numbers
+            </p>
+            <h2 className="mt-2 text-4xl font-bold text-slate-900 dark:text-slate-100">
+              See what you&apos;ll save.
+            </h2>
+          </div>
+          <RoiCalculator />
+        </div>
+      </section>
+
+      {/* ============================================ */}
+      {/* INTERACTIVE: COMPARISON                       */}
+      {/* ============================================ */}
+      <section className="bg-white py-24 dark:bg-ink-950">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-sm font-semibold uppercase tracking-wider text-transparent">
+              Why switch
+            </p>
+            <h2 className="mt-2 text-4xl font-bold text-slate-900 dark:text-slate-100">
+              PeopleHub vs the alternatives.
+            </h2>
+            <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
+              Compare side-by-side. Click the chip to swap competitors.
+            </p>
+          </div>
+          <ComparisonTable />
+        </div>
+      </section>
+
+      {/* ============================================ */}
       {/* MODULES — grouped by category                 */}
       {/* ============================================ */}
-      <section id="modules" className="bg-white py-24 dark:bg-ink-950">
+      <section id="modules" className="bg-slate-50 py-24 dark:bg-ink-900">
         <div className="mx-auto max-w-7xl px-6">
           <div className="mx-auto max-w-2xl text-center">
             <p className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-sm font-semibold uppercase tracking-wider text-transparent">
               Modules
             </p>
-            <h2 className="mt-2 text-4xl font-bold text-slate-900 dark:text-slate-100">15 modules. One workspace.</h2>
+            <h2 className="mt-2 text-4xl font-bold text-slate-900 dark:text-slate-100">16 modules. One workspace.</h2>
             <p className="mt-4 text-lg text-slate-600 dark:text-slate-400">
               Organised the way HR actually works — by function, not feature.
             </p>
@@ -364,6 +463,7 @@ export default async function LandingPage() {
                 items: [
                   { title: "Performance", desc: "Quarterly reviews with 0–5 star ratings, strengths/improvements/goals workflow." },
                   { title: "Payroll", desc: "Auto-generate monthly payroll, editable components, printable PDF payslips per employee." },
+                  { title: "Expenses", desc: "Reimbursement claims with receipt links, manager approval, auto-flow into payroll." },
                   { title: "Assets", desc: "Equipment tracking — laptops, phones, access cards. Assignment, status, serial numbers." },
                   { title: "Announcements", desc: "Company notice board with priority levels and department targeting." },
                 ],
@@ -507,9 +607,26 @@ export default async function LandingPage() {
       </section>
 
       {/* ============================================ */}
-      {/* CTA                                           */}
+      {/* TESTIMONIALS                                  */}
       {/* ============================================ */}
       <section className="bg-white py-24 dark:bg-ink-950">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <p className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-sm font-semibold uppercase tracking-wider text-transparent">
+              Loved by HR teams
+            </p>
+            <h2 className="mt-2 text-4xl font-bold text-slate-900 dark:text-slate-100">
+              What teams say after switching.
+            </h2>
+          </div>
+          <Testimonials />
+        </div>
+      </section>
+
+      {/* ============================================ */}
+      {/* CTA                                           */}
+      {/* ============================================ */}
+      <section className="bg-slate-50 py-24 dark:bg-ink-900">
         <div className="mx-auto max-w-7xl px-6">
           <div className="relative isolate overflow-hidden rounded-3xl bg-ink-950 p-10 text-center text-white shadow-2xl shadow-violet-900/30 sm:p-16">
             <div className="pointer-events-none absolute inset-0 bg-aurora-1 opacity-90" />
@@ -521,7 +638,8 @@ export default async function LandingPage() {
               </span>
             </h2>
             <p className="relative mx-auto mt-4 max-w-xl text-white/70">
-              15 modules. Two portals. Dark mode. Cmd+K. Payslip PDFs. eSSL biometric sync. All on your own server in under 5 minutes.
+              16 modules. Two portals. Dark mode. Cmd+K. Payslip PDFs. eSSL biometric sync. Expense reimbursement.
+              WebAuthn fingerprint. All on your own server in under 5 minutes.
             </p>
             <div className="relative mt-8 flex flex-wrap justify-center gap-3">
               {user ? (
@@ -704,4 +822,8 @@ export default async function LandingPage() {
       </footer>
     </div>
   );
+}
+
+function Stat({ children }: { children: React.ReactNode }) {
+  return <div>{children}</div>;
 }
