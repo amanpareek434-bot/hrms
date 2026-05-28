@@ -41,6 +41,14 @@ export function getLastTransport(): EsslTransport | null {
   return lastTransport;
 }
 
+// Pick a fresh, high local UDP port for each connection. Using a fixed port
+// (the old default 4000) caused `EADDRINUSE` when a prior socket lingered
+// across requests / dev hot-reloads. The device replies to whatever source
+// port we send from, so any free local port works.
+function randomInport(): number {
+  return 50000 + Math.floor(Math.random() * 15000);
+}
+
 async function newZk(cfg: EsslConfig): Promise<ZK> {
   // Dynamic import so the module is only required when used (cleaner cold-start)
   const ZKLibMod = await import("node-zklib");
@@ -51,12 +59,25 @@ async function newZk(cfg: EsslConfig): Promise<ZK> {
     inport: number,
   ) => ZK;
   // Shorter per-transport timeout so TCP-fail → UDP completes well within HTTP limits.
-  return new ZKLib(cfg.ip, cfg.port ?? 4370, cfg.timeoutMs ?? 5000, cfg.inportMs ?? 4000);
+  return new ZKLib(cfg.ip, cfg.port ?? 4370, cfg.timeoutMs ?? 5000, cfg.inportMs ?? randomInport());
+}
+
+function isAddrInUse(err: unknown): boolean {
+  const code = (err as { code?: string })?.code;
+  const msg = (err as Error)?.message || "";
+  return code === "EADDRINUSE" || msg.includes("EADDRINUSE");
 }
 
 async function tryUdp(zk: ZK): Promise<void> {
   if (!zk.zklibUdp.socket) {
-    await zk.zklibUdp.createSocket();
+    try {
+      await zk.zklibUdp.createSocket();
+    } catch (err) {
+      // A bind clash on the local port doesn't mean the device is unreachable —
+      // the socket object still exists and can send. node-zklib itself treats
+      // EADDRINUSE as "connected", so mirror that. Re-throw anything else.
+      if (!isAddrInUse(err)) throw err;
+    }
     await zk.zklibUdp.connect();
   }
   zk.connectionType = "udp";
