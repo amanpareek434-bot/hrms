@@ -28,6 +28,7 @@ interface DeviceInfo {
   users: number;
   logs: number;
   capacity: number;
+  transport?: "tcp" | "udp";
   enrolledUsers: Array<{ userId: string; name: string }>;
 }
 
@@ -107,7 +108,7 @@ export default function EsslIntegrationPage() {
     }
   }
 
-  async function test() {
+  async function test(transport: "auto" | "tcp" | "udp" = "auto") {
     setErrorMsg(null);
     setDevice(null);
     setTesting(true);
@@ -115,12 +116,20 @@ export default function EsslIntegrationPage() {
       const r = await fetch("/api/integrations/essl/test", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ deviceIp: settings.deviceIp, devicePort: settings.devicePort }),
+        body: JSON.stringify({
+          deviceIp: settings.deviceIp,
+          devicePort: settings.devicePort,
+          transport,
+        }),
       });
       const d = await r.json();
-      if (!r.ok) throw new Error(d.error || "Connection failed");
+      if (!r.ok) {
+        throw new Error(d.hint ? `${d.error}\n\n💡 ${d.hint}` : d.error || "Connection failed");
+      }
       setDevice(d);
-      setOkMsg(`Connected! ${d.users} users, ${d.logs} logs on device.`);
+      setOkMsg(
+        `Connected over ${String(d.transport || "tcp").toUpperCase()}! ${d.users} users, ${d.logs} logs on device.`,
+      );
     } catch (e) {
       setErrorMsg((e as Error).message);
     } finally {
@@ -182,8 +191,16 @@ export default function EsslIntegrationPage() {
                 Last synced: {settings.lastSyncAt}
               </span>
             ) : null}
-            <button className="btn-secondary" onClick={test} disabled={testing || !settings.deviceIp}>
+            <button className="btn-secondary" onClick={() => test("auto")} disabled={testing || !settings.deviceIp}>
               {testing ? "Testing…" : "Test Connection"}
+            </button>
+            <button
+              className="btn-secondary"
+              onClick={() => test("udp")}
+              disabled={testing || !settings.deviceIp}
+              title="Force UDP — many eSSL devices only listen on UDP 4370"
+            >
+              Try UDP
             </button>
             <button className="btn-secondary" onClick={importUsers} disabled={importing || !settings.deviceIp}>
               {importing ? "Importing…" : "Import Users"}
@@ -197,7 +214,7 @@ export default function EsslIntegrationPage() {
 
       <div className="mx-auto max-w-screen-2xl space-y-6 p-4 sm:p-6 lg:px-8">
         {errorMsg ? (
-          <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
+          <div className="whitespace-pre-line rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
             {errorMsg}
           </div>
         ) : null}
@@ -281,10 +298,11 @@ export default function EsslIntegrationPage() {
         {device ? (
           <section className="card">
             <h2 className="mb-4 text-base font-semibold text-slate-900 dark:text-slate-100">Device Status</h2>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               <Stat label="Enrolled Users" value={device.users} />
               <Stat label="Stored Logs" value={device.logs} />
               <Stat label="Log Capacity" value={device.capacity} />
+              <Stat label="Transport" value={(device.transport || "tcp").toUpperCase()} />
             </div>
             {device.enrolledUsers.length > 0 ? (
               <div className="mt-5">

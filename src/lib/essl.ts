@@ -2,8 +2,20 @@
 // Used only by server-side API routes — DO NOT import in client code.
 
 // node-zklib has no types — declare a minimal interface.
+// We also expose the internal tcp/udp handles + connectionType so we can
+// force a UDP attempt ourselves (the library only auto-falls-back on ECONNREFUSED).
+interface ZKTransport {
+  socket: unknown;
+  createSocket: (cbErr?: (e: Error) => void, cbClose?: () => void) => Promise<unknown>;
+  connect: () => Promise<unknown>;
+  disconnect: () => Promise<unknown>;
+}
+
 type ZK = {
-  createSocket: () => Promise<unknown>;
+  connectionType: "tcp" | "udp" | null;
+  zklibTcp: ZKTransport;
+  zklibUdp: ZKTransport;
+  createSocket: (cbErr?: (e: Error) => void, cbClose?: () => void) => Promise<unknown>;
   disconnect: () => Promise<unknown>;
   getInfo: () => Promise<{ userCounts?: number; logCounts?: number; logCapacity?: number }>;
   getUsers: () => Promise<{ data: Array<{ userId: string; name: string; uid: number; role: number; cardno?: number }> }>;
@@ -17,9 +29,19 @@ interface EsslConfig {
   port?: number;
   timeoutMs?: number;
   inportMs?: number;
+  /** Force a specific transport. Default: try TCP then UDP. */
+  transport?: "tcp" | "udp" | "auto";
 }
 
-async function connect(cfg: EsslConfig): Promise<ZK> {
+export type EsslTransport = "tcp" | "udp";
+
+// Holds the transport that the most recent connect() actually used.
+let lastTransport: EsslTransport | null = null;
+export function getLastTransport(): EsslTransport | null {
+  return lastTransport;
+}
+
+async function newZk(cfg: EsslConfig): Promise<ZK> {
   // Dynamic import so the module is only required when used (cleaner cold-start)
   const ZKLibMod = await import("node-zklib");
   const ZKLib = (ZKLibMod.default || ZKLibMod) as unknown as new (
@@ -28,9 +50,53 @@ async function connect(cfg: EsslConfig): Promise<ZK> {
     timeout: number,
     inport: number,
   ) => ZK;
-  const zk = new ZKLib(cfg.ip, cfg.port ?? 4370, cfg.timeoutMs ?? 10000, cfg.inportMs ?? 4000);
-  await zk.createSocket();
-  return zk;
+  // Shorter per-transport timeout so TCP-fail → UDP completes well within HTTP limits.
+  return new ZKLib(cfg.ip, cfg.port ?? 4370, cfg.timeoutMs ?? 5000, cfg.inportMs ?? 4000);
+}
+
+async function tryUdp(zk: ZK): Promise<void> {
+  if (!zk.zklibUdp.socket) {
+    await zk.zklibUdp.createSocket();
+    await zk.zklibUdp.connect();
+  }
+  zk.connectionType = "udp";
+}
+
+async function connect(cfg: EsslConfig): Promise<ZK> {
+  const zk = await newZk(cfg);
+  const mode = cfg.transport ?? "auto";
+
+  // Caller explicitly wants UDP — skip TCP entirely.
+  if (mode === "udp") {
+    await tryUdp(zk);
+    lastTransport = "udp";
+    return zk;
+  }
+
+  try {
+    // node-zklib's createSocket tries TCP, and only falls back to UDP on ECONNREFUSED.
+    await zk.createSocket();
+    lastTransport = zk.connectionType === "udp" ? "udp" : "tcp";
+    return zk;
+  } catch (tcpErr) {
+    if (mode === "tcp") {
+      throw tcpErr;
+    }
+    // TCP failed for a reason that did NOT auto-trigger UDP (e.g. timeout / host
+    // unreachable). Many eSSL/ZKTeco units only listen on UDP 4370, so try it.
+    try {
+      await tryUdp(zk);
+      lastTransport = "udp";
+      return zk;
+    } catch (udpErr) {
+      const t = (tcpErr as Error)?.message || String(tcpErr);
+      const u = (udpErr as Error)?.message || String(udpErr);
+      throw new Error(
+        `Could not reach the device on ${cfg.ip}:${cfg.port ?? 4370} over TCP or UDP. ` +
+          `TCP: ${t} | UDP: ${u}`,
+      );
+    }
+  }
 }
 
 export interface EsslPunch {
@@ -42,6 +108,7 @@ export interface EsslDeviceInfo {
   users: number;
   logs: number;
   capacity: number;
+  transport: EsslTransport;
   enrolledUsers: Array<{ userId: string; name: string }>;
 }
 
@@ -54,6 +121,7 @@ export async function getDeviceInfo(cfg: EsslConfig): Promise<EsslDeviceInfo> {
       users: info.userCounts ?? 0,
       logs: info.logCounts ?? 0,
       capacity: info.logCapacity ?? 0,
+      transport: lastTransport ?? "tcp",
       enrolledUsers: users.data.map((u) => ({ userId: u.userId, name: u.name || "" })),
     };
   } finally {
